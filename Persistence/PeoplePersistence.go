@@ -48,7 +48,7 @@ func (p PeoplePersistence) FillDefaults() *mongo.Database {
 		client, err := mongo.NewClient(options.Client().ApplyURI("mongodb+srv://test:testApp123@cluster0.2xxny.mongodb.net/PeopleDB?retryWrites=true&w=majority").SetWriteConcern(writeconcern.New(writeconcern.WMajority())))
 		//client, err := mongo.Connect(context.TODO(), clientOptions)
 		if err == nil {
-			ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+			ctx, _ := context.WithTimeout(context.TODO(), 10*time.Second)
 			err = client.Connect(ctx)
 			if err != nil {
 				log.Fatal(err)
