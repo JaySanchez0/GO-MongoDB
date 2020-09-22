@@ -1,7 +1,6 @@
 package Controller
 
 import (
-	"fmt"
 	"main/Service"
 	"main/model"
 	"net/http"
