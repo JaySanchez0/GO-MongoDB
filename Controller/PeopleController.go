@@ -21,13 +21,13 @@ func (p PeopleController) Methods() {
 
 func (p PeopleController) addPeople(context echo.Context) error {
 	people := new(model.People)
-	err := context.Bind(people)
-	fmt.Println(people)
-	if err == nil {
+	if err := context.Bind(people); err == echo.ErrUnsupportedMediaType {
+		fmt.Println(people)
 		p.service.AddPeople(people)
-		return context.JSON(http.StatusAccepted, "")
+		return context.JSON(http.StatusBadRequest, people)
 	}
-	return context.JSON(http.StatusBadRequest, "")
+	fmt.Println(people)
+	return context.JSON(http.StatusAccepted, people)
 }
 
 func (p PeopleController) getPeoples(context echo.Context) error {
