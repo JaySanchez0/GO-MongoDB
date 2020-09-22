@@ -9,6 +9,7 @@ import (
 
 func main() {
 	p := echo.New()
+	p.Static("/", "static")
 	c := Controller.PeopleController{Echo: p}
 	c.Methods()
 	p.Start(":" + getPort())
