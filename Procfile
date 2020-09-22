@@ -1,1 +1,1 @@
-web: bin/GO-MongoDB
+web: bin/main
