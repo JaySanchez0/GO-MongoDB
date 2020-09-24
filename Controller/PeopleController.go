@@ -27,8 +27,11 @@ func (p *PeopleController) addPeople(context echo.Context) error {
 	if err := context.Bind(people); err == echo.ErrUnsupportedMediaType {
 		return context.JSON(http.StatusBadRequest, people)
 	}
-	p.service.AddPeople(people.Clone())
-	return context.JSON(http.StatusAccepted, people)
+	err:=p.service.AddPeople(people.Clone())
+	if err==nil{
+		return context.JSON(http.StatusAccepted, people)
+	}
+	return context.JSON(http.StatusBadRequest,err.Error())
 }
 /**
 * Devuelve todas las personas

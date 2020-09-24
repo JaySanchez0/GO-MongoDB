@@ -41,7 +41,7 @@ func (p *PeoplePersistence) GetPeoples() []model.People {
 */
 func (p *PeoplePersistence) AddPeople(people model.People) {
 	p.FillDefaults()
-	fmt.Println("save")
+	//fmt.Println("save")
 	collection := p.Db.Collection("People")
 	collection.InsertOne(context.TODO(), people.Clone())
 }
@@ -50,7 +50,7 @@ func (p *PeoplePersistence) AddPeople(people model.People) {
 * obtiene la conexion a la base de datos
 */
 func (p *PeoplePersistence) FillDefaults() {
-	fmt.Println(p.Db)
+	//fmt.Println(p.Db)
 	if p.Db == nil {
 		client, err := mongo.NewClient(options.Client().ApplyURI("mongodb+srv://test:testApp123@cluster0.2xxny.mongodb.net/PeopleDB?retryWrites=true&w=majority").SetWriteConcern(writeconcern.New(writeconcern.WMajority())))
 		if err == nil {

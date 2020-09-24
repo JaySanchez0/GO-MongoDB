@@ -25,10 +25,10 @@ var app = (function(){
         },
         addPeople:function(){
             var name = $("#name").val();
-            var age = $("#age").val();
+            var age = parseInt($("#age").val());
             var city = $("#city").val();
             var ad = $("#address").val();
-            client.addPeople({Name:name,Age:age,City:city,Address:ad},addPeopleShow);
+            client.addPeople({name:name,age:age,city:city,address:ad},addPeopleShow);
 
         }
     }
