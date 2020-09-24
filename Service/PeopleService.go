@@ -23,7 +23,7 @@ func (p *PeopleService) GetPeoples() []model.People {
 func (p *PeopleService) AddPeople(people model.People) error{
 	fmt.Println(strconv.Itoa(people.Age))
 	if people.Age<0 {
-		return exception.PeopleError{Msg:"Un Valid age"}
+		return &exception.PeopleError{Msg:"Un Valid age"}
 	}
 	p.peoplePersistence.AddPeople(people)
 	return nil

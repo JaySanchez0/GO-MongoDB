@@ -8,6 +8,6 @@ type PeopleError struct{
 /**
 * Show error menssage
 */
-func (e PeopleError) Error() string{
+func (e *PeopleError) Error() string{
 	return e.Msg;
 }
