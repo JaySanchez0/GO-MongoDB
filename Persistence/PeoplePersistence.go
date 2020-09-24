@@ -17,9 +17,9 @@ type PeoplePersistence struct {
 /**
 * Devuelve todas las personas en la base de datos
 */
-func (p PeoplePersistence) GetPeoples() []model.People {
-	db := p.FillDefaults()
-	collection := db.Collection("People")
+func (p *PeoplePersistence) GetPeoples() []model.People {
+	p.FillDefaults()
+	collection := p.Db.Collection("People")
 	var peoples []model.People
 	cursor, er := collection.Find(context.TODO(), bson.D{})
 	if er == nil {
@@ -39,21 +39,20 @@ func (p PeoplePersistence) GetPeoples() []model.People {
 /**
 * Registra una persona en la base de datos
 */
-func (p PeoplePersistence) AddPeople(people model.People) {
-	db := p.FillDefaults()
+func (p *PeoplePersistence) AddPeople(people model.People) {
+	p.FillDefaults()
 	fmt.Println("save")
-	collection := db.Collection("People")
+	collection := p.Db.Collection("People")
 	collection.InsertOne(context.TODO(), people.Clone())
 }
 
 /**
 * obtiene la conexion a la base de datos
 */
-func (p PeoplePersistence) FillDefaults() *mongo.Database {
+func (p *PeoplePersistence) FillDefaults() {
+	fmt.Println(p.Db)
 	if p.Db == nil {
-		//fmt.Println("entro create peristence")
 		client, err := mongo.NewClient(options.Client().ApplyURI("mongodb+srv://test:testApp123@cluster0.2xxny.mongodb.net/PeopleDB?retryWrites=true&w=majority").SetWriteConcern(writeconcern.New(writeconcern.WMajority())))
-		//client, err := mongo.Connect(context.TODO(), clientOptions)
 		if err == nil {
 			err = client.Connect(context.TODO())
 			if err != nil {
@@ -61,11 +60,7 @@ func (p PeoplePersistence) FillDefaults() *mongo.Database {
 			}
 			db := client.Database("PeopleDB")
 			p.Db = db
-			fmt.Println("Ok")
-			fmt.Println(db)
-			return db
 		}
-		fmt.Println("Error")
+		fmt.Println("Creo db")
 	}
-	return nil
 }

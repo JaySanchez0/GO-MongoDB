@@ -11,12 +11,12 @@ type PeopleService struct {
 /**
 * Obtiene todas las personas de la base de datos
 */
-func (p PeopleService) GetPeoples() []model.People {
+func (p *PeopleService) GetPeoples() []model.People {
 	return p.peoplePersistence.GetPeoples()
 }
 /**
 * Agrega una nueva persona a la base de datos
 */
-func (p PeopleService) AddPeople(people model.People) {
+func (p *PeopleService) AddPeople(people model.People) {
 	p.peoplePersistence.AddPeople(people)
 }
